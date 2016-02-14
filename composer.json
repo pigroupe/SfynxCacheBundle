@@ -1,0 +1,45 @@
+{
+  "name": "sfynx-project/tool-cache-bundle",
+  "type": "symfony-bundle",
+  "description": "This Bundle provides classes to cache handlers (memcache, files)",
+  "keywords": ["tool", "cache", "memcache", "file", "ttl"],
+  "homepage": "http://pigroupe.github.io/cmf-sfynx/",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Etienne de Longeaux",
+      "email": "etienne.delongeaux@gmail.com"
+    },
+    {
+      "name": "Sfynx Community",
+      "homepage": "https://github.com/pigroupe/SfynxCacheBundle/contributors"
+    }
+  ],
+
+  "require": {
+    "symfony/framework-bundle": "~2.3"
+  },
+
+  "require-dev": {
+    "symfony/phpunit-bridge": "~2.7|~3.0",
+    "phpunit/phpunit": "*"
+  },
+
+  "suggest": {
+  },
+
+  "conflict": {
+  },
+
+  "autoload": {
+    "psr-0": { "Sfynx\\CacheBundle": "" }
+  },
+
+  "target-dir": "Sfynx/CacheBundle",
+
+  "extra": {
+    "branch-alias": {
+      "dev-master": "2.3-dev"
+    }
+  }
+}
