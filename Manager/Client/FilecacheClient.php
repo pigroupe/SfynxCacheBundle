@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of the <Cache> project.
- * 
+ *
  * @uses       CacheClientInterface
  * @package    Cache
  * @subpackage Manager
@@ -19,7 +19,7 @@ use Sfynx\CacheBundle\Builder\CacheClientInterface;
  * Completely untested and undocumented. Use at your own risk!
  *
  * Fixes appreciated!
- * 
+ *
  * @uses       ClientCacheInterface
  * @package    Cache
  * @subpackage Manager
@@ -80,7 +80,7 @@ class FilecacheClient implements CacheClientInterface
             return false;
         }
     }
-    
+
     public function changeValue($key, $newValue)
     {
         if ( !$this->isSafe() || empty( $key ) ) {
@@ -102,7 +102,7 @@ class FilecacheClient implements CacheClientInterface
             return false;
         }
     }
-    
+
     /**
      * Delete the file cache
      *
@@ -121,15 +121,15 @@ class FilecacheClient implements CacheClientInterface
             return true;
         } else {
             return false;
-        }    
-    }    
+        }
+    }
 
     public function setPath( $path )
     {
         if ( !empty( $path ) && is_dir( $path ) && is_writable( $path ) ){
             $this->path = $path;
             return true;
-        } else { 
+        } else {
             $this->path = null;
             return false;
         }
@@ -151,6 +151,6 @@ class FilecacheClient implements CacheClientInterface
 
     protected function buildFilename( $key )
     {
-        return $this->path . md5( $key ) . '_file.cache';
+        return $this->path . sha1( $key ) . '_file.cache';
     }
 }
