@@ -1,7 +1,7 @@
 <?php
 namespace Sfynx\CacheBundle\Manager\Client;
 
-use Sfynx\ToolBundle\Util\PiFileManager;
+use Sfynx\CacheBundle\Manager\Util\UtilManager;
 use Sfynx\CacheBundle\Manager\Generalisation\ClientInterface;
 
 /**
@@ -17,12 +17,10 @@ use Sfynx\CacheBundle\Manager\Generalisation\ClientInterface;
  */
 class FilecacheClient implements ClientInterface
 {
+    /** @var null  */
     protected $path = null;
+    /** @var null  */
     protected $options = null;
-
-    public function __construct()
-    {
-    }
 
     /**
      * {@inheritdoc}
@@ -46,7 +44,7 @@ class FilecacheClient implements ClientInterface
             } elseif ($file['key'] != $key) {
                 return false;
             } elseif ($file['ttl'] ==  0) {
-            	return unserialize( $file['value']);
+                return unserialize( $file['value']);
             } elseif (time() - $file['ctime'] > $file['ttl']) {
                 return false;
             }
@@ -78,12 +76,12 @@ class FilecacheClient implements ClientInterface
     public function fresh($key, $value = null)
     {
         if ($this->isBuildSafe($key)) {
-        	$file = file_get_contents($this->buildFilename($key));
-        	$file = unserialize($file);
-        	if (!is_array($file)) {
-        	    return false;
+            $file = file_get_contents($this->buildFilename($key));
+            $file = unserialize($file);
+            if (!is_array($file)) {
+                return false;
             } elseif ($file['key'] != $key) {
-            	return false;
+                return false;
             }
             $file['value'] = serialize($value);
 
@@ -120,18 +118,26 @@ class FilecacheClient implements ClientInterface
      */
     public function setPath($path)
     {
-        PiFileManager::mkdirr($path);
+        UtilManager::mkdirr($path);
         if (!empty($path) && is_dir($path) && is_writable($path)) {
             $this->path = $path;
         }
         return $this;
     }
 
+    /**
+     *
+     */
     public function isFull()
     {
         //Check if the cache has exceeded its alotted size
     }
 
+
+    /**
+     * @param null $key
+     * @return bool
+     */
     protected function isBuildSafe($key = null)
     {
         if (!$this->isSafe($key) || !file_exists( $this->buildFilename($key))) {
@@ -140,9 +146,12 @@ class FilecacheClient implements ClientInterface
         return true;
     }
 
+    /**
+     * @param $key
+     * @return string
+     */
     protected function buildFilename($key)
     {
         return $this->path . sha1($key) . '_file.cache';
-        return $this;
     }
 }
