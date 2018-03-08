@@ -134,6 +134,10 @@ class DumperClient implements ClientInterface
         return $this;
     }
 
+    /**
+     * @param null $key
+     * @return bool
+     */
     protected function isBuildSafe($key = null)
     {
         if (empty($key) || !file_exists($this->setPath()->buildFilename($key))) {
@@ -142,6 +146,10 @@ class DumperClient implements ClientInterface
         return true;
     }
 
+    /**
+     * @param $key
+     * @return mixed
+     */
     protected function buildClass($key)
     {
         $this->options['dumper_options']['class'] = $this->options['namespace_file'] . $this->environment . ( $this->debug ? 'Debug' : '' )  . sha1($key);
@@ -149,6 +157,10 @@ class DumperClient implements ClientInterface
         return $this->options['dumper_options']['class'];
     }
 
+    /**
+     * @param $key
+     * @return string
+     */
     protected function buildFilename($key)
     {
         return $this->path . $this->buildClass($key);
