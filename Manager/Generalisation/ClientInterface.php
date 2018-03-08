@@ -85,5 +85,4 @@ interface ClientInterface
      * @return CacheInterface
      */
     public function setPath($path);
-
 }

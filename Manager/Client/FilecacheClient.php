@@ -17,10 +17,12 @@ use Sfynx\CacheBundle\Manager\Generalisation\ClientInterface;
  */
 class FilecacheClient implements ClientInterface
 {
-    /** @var null  */
+    /** @var string|null  */
     protected $path = null;
-    /** @var null  */
+    /** @var array|null  */
     protected $options = null;
+    /** @var string|null  */
+    protected $pattern = '';
 
     /**
      * {@inheritdoc}
@@ -133,6 +135,35 @@ class FilecacheClient implements ClientInterface
         //Check if the cache has exceeded its alotted size
     }
 
+    /**
+     * Set pattern
+     *
+     * @param string $pattern
+     * @access public
+     * @return CacheInterface
+     */
+    public function setPattern($pattern)
+    {
+        $this->pattern = $pattern;
+        return $this;
+    }
+
+    /**
+     * Clean all cache files with filename containing a specific pattern
+     *
+     * @param string $pattern
+     * @access public
+     * @return array
+     */
+    public function globClear($pattern)
+    {
+        if (!empty($path) && is_dir($path) && is_writable($path)) {
+            array_map(function($file) {
+                unlink($file);
+            },  UtilManager::GlobFiles($this->path . $pattern));
+        }
+        return false;
+    }
 
     /**
      * @param null $key
@@ -152,6 +183,6 @@ class FilecacheClient implements ClientInterface
      */
     protected function buildFilename($key)
     {
-        return $this->path . sha1($key) . '_file.cache';
+        return $this->path . $this->pattern . sha1($key) . '_file.cache';
     }
 }
