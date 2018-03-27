@@ -19,6 +19,8 @@ namespace Sfynx\CacheBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+use Sfynx\CacheBundle\DependencyInjection\Compiler\ChangeProviderPass;
+
 /**
  * Sfynx configuration and managment of the cache Bundle
  *
@@ -46,6 +48,8 @@ class SfynxCacheBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
     	parent::build($container);
+
+        $container->addCompilerPass(new ChangeProviderPass());
     }
     
     /**

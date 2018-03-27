@@ -17,15 +17,18 @@
  */
 namespace Sfynx\CacheBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension,
+    Symfony\Component\DependencyInjection\ContainerBuilder,
+    Symfony\Component\DependencyInjection\Loader,
+    Symfony\Component\Config\FileLocator;
+
+use Sfynx\CacheBundle\Handler\Generalisation\Interfaces\FactoryPassInterface;
+use Sfynx\CacheBundle\DependencyInjection\Compiler\FactoryPass;
 
 /**
  * This is the class that loads and manages your bundle configuration
  *
- * @category   Cache
+ * @category   Sfynx\CacheBundle
  * @package    DependencyInjection
  * @subpackage Extension
  * @author     Etienne de Longeaux <etienne.delongeaux@gmail.com>
@@ -37,6 +40,14 @@ use Symfony\Component\DependencyInjection\Loader;
  */
 class SfynxCacheExtension extends Extension
 {
+    const HANDLER_LIST = [
+        FactoryPassInterface::HANDLER_SESSION,
+        FactoryPassInterface::HANDLER_DOCTRINE,
+        FactoryPassInterface::HANDLER_ANNOTATION,
+        FactoryPassInterface::HANDLER_SERIALIZER,
+        FactoryPassInterface::HANDLER_VALIDATION
+    ];
+
     /**
      * {@inheritDoc}
      */
@@ -44,5 +55,23 @@ class SfynxCacheExtension extends Extension
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $configuration = new Configuration();
+        $config        = $this->processConfiguration($configuration, $configs);
+
+        /**
+         * Cache config parameter
+         */
+        foreach (self::HANDLER_LIST as $section) {
+            $container->setParameter('sfynx.cache.'.$section, $config[$section]);
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getAlias()
+    {
+        return 'sfynx_cache';
     }
 }
