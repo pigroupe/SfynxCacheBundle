@@ -128,6 +128,14 @@ class DumperClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
+    public function globClear(string $pattern = ''): bool
+    {
+        return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function setPath($path)
     {
         $this->path = $this->kernel->getCacheDir().'/'. $this->options['namespace_dir'] .'/';

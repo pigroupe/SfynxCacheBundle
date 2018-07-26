@@ -39,18 +39,18 @@ class FilecacheClient implements ClientInterface
     public function get($key)
     {
         if ($this->isBuildSafe($key)) {
-            $file = file_get_contents( $this->buildFilename($key));
-            $file = unserialize( $file );
+            $file = \file_get_contents( $this->buildFilename($key));
+            $file = \unserialize( $file );
             if (!is_array($file)) {
                 return false;
             } elseif ($file['key'] != $key) {
                 return false;
             } elseif ($file['ttl'] ==  0) {
-                return unserialize( $file['value']);
-            } elseif (time() - $file['ctime'] > $file['ttl']) {
+                return \unserialize( $file['value']);
+            } elseif (\time() - $file['ctime'] > $file['ttl']) {
                 return false;
             }
-            return unserialize($file['value']);
+            return \unserialize($file['value']);
         }
         return false;
     }
@@ -62,12 +62,12 @@ class FilecacheClient implements ClientInterface
     {
         $file = [];
         $file['key'] = $key;
-        $file['value'] = serialize($value);
+        $file['value'] = \serialize($value);
         $file['ttl'] = $ttl;
-        $file['ctime'] = time();
+        $file['ctime'] = \time();
 
         if ($this->isSafe($key)) {
-            return file_put_contents($this->buildFilename($key), serialize($file));
+            return \file_put_contents($this->buildFilename($key), \serialize($file));
         }
         return false;
     }
@@ -78,16 +78,16 @@ class FilecacheClient implements ClientInterface
     public function fresh($key, $value = null)
     {
         if ($this->isBuildSafe($key)) {
-            $file = file_get_contents($this->buildFilename($key));
-            $file = unserialize($file);
-            if (!is_array($file)) {
+            $file = \file_get_contents($this->buildFilename($key));
+            $file = \unserialize($file);
+            if (!\is_array($file)) {
                 return false;
             } elseif ($file['key'] != $key) {
                 return false;
             }
-            $file['value'] = serialize($value);
+            $file['value'] = \serialize($value);
 
-            return file_put_contents($this->buildFilename($key), serialize($file));
+            return \file_put_contents($this->buildFilename($key), \serialize($file));
         }
         return false;
     }
@@ -97,10 +97,10 @@ class FilecacheClient implements ClientInterface
      */
     public function isSafe($key = null)
     {
-        if (empty($key) || is_null($this->path)) {
+        if (empty($key) || \is_null($this->path)) {
             return false;
         }
-        return is_dir($this->path) && is_writable($this->path);
+        return \is_dir($this->path) && \is_writable($this->path);
     }
 
     /**
@@ -109,7 +109,7 @@ class FilecacheClient implements ClientInterface
     public function clear($key)
     {
         if ($this->isBuildSafe($key)) {
-            unlink($this->buildFilename($key));
+            \unlink($this->buildFilename($key));
             return true;
         }
         return false;
@@ -121,7 +121,7 @@ class FilecacheClient implements ClientInterface
     public function setPath($path)
     {
         UtilManager::mkdirr($path);
-        if (!empty($path) && is_dir($path) && is_writable($path)) {
+        if (!empty($path) && \is_dir($path) && \is_writable($path)) {
             $this->path = $path;
         }
         return $this;
@@ -149,17 +149,13 @@ class FilecacheClient implements ClientInterface
     }
 
     /**
-     * Clean all cache files with filename containing a specific pattern
-     *
-     * @param string $pattern
-     * @access public
-     * @return array
+     * {@inheritdoc}
      */
-    public function globClear($pattern)
+    public function globClear(string $pattern = ''): bool
     {
-        if (!empty($path) && is_dir($path) && is_writable($path)) {
-            array_map(function($file) {
-                unlink($file);
+        if (!empty($path) && \is_dir($path) && \is_writable($path)) {
+            \array_map(function($file) {
+                \unlink($file);
             },  UtilManager::GlobFiles($this->path . $pattern));
         }
         return false;
@@ -171,7 +167,7 @@ class FilecacheClient implements ClientInterface
      */
     protected function isBuildSafe($key = null)
     {
-        if (!$this->isSafe($key) || !file_exists( $this->buildFilename($key))) {
+        if (!$this->isSafe($key) || !\file_exists( $this->buildFilename($key))) {
             return false;
         }
         return true;
@@ -183,6 +179,6 @@ class FilecacheClient implements ClientInterface
      */
     protected function buildFilename($key)
     {
-        return $this->path . $this->pattern . sha1($key) . '_file.cache';
+        return $this->path . $this->pattern . \sha1($key) . '_file.cache';
     }
 }

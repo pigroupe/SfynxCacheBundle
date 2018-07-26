@@ -32,7 +32,6 @@ services:
         public: true
         arguments: ['@sfynx.cache.filecache.client']
 
-
 #    #
 #    # configuration of the class manager allowed for the Memcache
 #    #

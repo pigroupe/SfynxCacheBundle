@@ -26,8 +26,11 @@ use Sfynx\CacheBundle\Manager\Generalisation\ClientInterface;
  */
 class CacheFactory implements CacheInterface
 {
+    /** @var null */
     protected $options = null;
+    /** @var null|CacheInterface|ClientInterface */
     protected $client = null;
+    /** @var bool */
     protected $safe = false;
 
     /**

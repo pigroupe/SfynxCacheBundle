@@ -26,7 +26,8 @@ interface FactoryPassInterface
     const HANDLER_SESSION = 'session';
     /** @var string */
     const HANDLER_DOCTRINE = 'doctrine';
-
+    /** @var string */
+    const HANDLER_CACHE_REDIS = 'client_rediscache';
     /** @var string */
     const FACTORY_RPREDIS_CLUSTER = 'predis_cluster';
 }

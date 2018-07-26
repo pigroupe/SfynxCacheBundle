@@ -33,7 +33,7 @@ class ChangeProviderPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         FactoryPass::create(FactoryPassInterface::FACTORY_RPREDIS_CLUSTER, null)->execute($container);
-
+        FactoryPass::create(FactoryPassInterface::HANDLER_CACHE_REDIS, null)->execute($container);
         FactoryPass::create(FactoryPassInterface::HANDLER_ANNOTATION, null)->execute($container);
         FactoryPass::create(FactoryPassInterface::HANDLER_VALIDATION, null)->execute($container);
         FactoryPass::create(FactoryPassInterface::HANDLER_DOCTRINE, null)->execute($container);

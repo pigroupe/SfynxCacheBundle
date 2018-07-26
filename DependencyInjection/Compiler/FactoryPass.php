@@ -8,6 +8,7 @@ use Sfynx\CacheBundle\Handler\SerializerHandlerPass;
 use Sfynx\CacheBundle\Handler\ValidationHandlerPass;
 use Sfynx\CacheBundle\Handler\SessionHandlerPass;
 use Sfynx\CacheBundle\Handler\DoctrineHandlerPass;
+use Sfynx\CacheBundle\Handler\RedisCacheHandlerPass;
 use Sfynx\CacheBundle\Handler\PredisClusterFactoryPass;
 
 /**
@@ -31,6 +32,7 @@ class FactoryPass implements FactoryPassInterface
         self::HANDLER_VALIDATION => ValidationHandlerPass::class,
         self::HANDLER_SESSION => SessionHandlerPass::class,
         self::HANDLER_DOCTRINE => DoctrineHandlerPass::class,
+        self::HANDLER_CACHE_REDIS => RedisCacheHandlerPass::class,
         self::FACTORY_RPREDIS_CLUSTER => PredisClusterFactoryPass::class,
     ];
 
