@@ -7,10 +7,10 @@ This bundle is responsible to :
 
 The following documents are available:
 
-- [Configuration reference of Adapter Bundle ](configuration_reference_adapter)
-- [Configuration reference of SfynxCacheBundle ](configuration_reference)
-- [SfynxCacheBundle documentation of Symfony Cache components](configuration_cache_symfony)
-- [SfynxCacheBundle documentation of interface cache client](configuration_cache_client)
+- [Configuration reference of Adapter Bundle ](configuration_reference_adapter.md)
+- [Configuration reference of SfynxCacheBundle ](configuration_reference.md)
+- [SfynxCacheBundle documentation of Symfony Cache components](configuration_cache_symfony.md)
+- [SfynxCacheBundle documentation of interface cache client](configuration_cache_client.md)
 - [ChangeLog](#changelog)
 - [Todo](#todo)
 
