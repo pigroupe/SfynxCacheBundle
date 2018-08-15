@@ -48,7 +48,7 @@ interface ClientInterface
      * @access public
      * @return void
      */
-    public function set($key, $value, $ttl);
+    public function set($key, $value, $ttl = 3600);
 
     /**
      * Fresh a value to the cache under a unique key
@@ -64,7 +64,7 @@ interface ClientInterface
      * Check the state of the cache
      *
      * @access public
-     * @return boolean True if the cache is in a usable state, otherwise false
+     * @return bool True if the cache is in a usable state, otherwise false
      */
     public function isSafe();
 
@@ -73,16 +73,16 @@ interface ClientInterface
      *
      * @param string $key Unique key to identify the data
      * @access public
-     * @return boolean
+     * @return bool
      */
     public function clear($key);
 
     /**
-     * Set path
+     * Clean all cache files with filename containing a specific pattern
      *
-     * @param string $path
+     * @param string $pattern
      * @access public
-     * @return CacheInterface
+     * @return bool
      */
-    public function setPath($path);
+    public function globClear(string $pattern = ''): bool;
 }

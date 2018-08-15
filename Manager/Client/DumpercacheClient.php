@@ -38,7 +38,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
  *     $this->container->get("sfynx.cache.dumpercache")->setOptions($options)->set($entity->getId(), $entity);
  * </code>
  */
-class DumperClient implements ClientInterface
+class DumpercacheClient implements ClientInterface
 {
     protected $path = null;
     protected $options = null;
@@ -128,6 +128,14 @@ class DumperClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
+    public function globClear(string $pattern = ''): bool
+    {
+        return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function setPath($path)
     {
         $this->path = $this->kernel->getCacheDir().'/'. $this->options['namespace_dir'] .'/';
@@ -140,7 +148,7 @@ class DumperClient implements ClientInterface
      */
     protected function isBuildSafe($key = null)
     {
-        if (empty($key) || !file_exists($this->setPath()->buildFilename($key))) {
+        if (empty($key) || !\file_exists($this->setPath()->buildFilename($key))) {
             return false;
         }
         return true;

@@ -22,7 +22,7 @@ class RandomDistributionStrategy implements StrategyInterface, HashGeneratorInte
      */
     public function __construct()
     {
-        $this->_nodes = array();
+        $this->_nodes = [];
         $this->_nodesCount = 0;
     }
     /**

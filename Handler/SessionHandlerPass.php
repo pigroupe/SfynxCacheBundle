@@ -98,7 +98,7 @@ class SessionHandlerPass extends AbstractHandlerPass
             $pool = new FixedTaggingCachePool(TaggablePSR6PoolAdapter::makeTaggable($pool), $tags);
         }
 
-        array_map(function($key) use (&$config) {
+        \array_map(function($key) use (&$config) {
             unset($config[$key]);
         }, ['enabled', 'provider','use_tagging', 'factory']);
 

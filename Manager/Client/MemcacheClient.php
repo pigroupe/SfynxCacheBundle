@@ -35,8 +35,8 @@ class MemcacheClient implements ClientInterface
     protected $compression = false;
 
     /**
-   * Constructs the cache client using an injected Memcache instance
-     * 
+     * Constructs the cache client using an injected Memcache instance
+     *
      * @access public
      * @return void
      */
@@ -68,7 +68,7 @@ class MemcacheClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, $ttl)
+    public function set($key, $value, $ttl = 3600)
     {
         if ($this->isSafe()) {
             return $this->mem->set($key, $value, $this->compression, $ttl);
@@ -106,9 +106,9 @@ class MemcacheClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function setPath($path)
+    public function globClear(string $pattern = ''): bool
     {
-        return $this;
+        return false;
     }
 
     /**

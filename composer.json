@@ -17,6 +17,7 @@
   ],
 
   "require": {
+    "php": "^7.2",
     "symfony/framework-bundle": "~2.8|~3.0",
     "cache/psr-6-doctrine-bridge": "^3.0",
     "cache/adapter-bundle": "^1.2",

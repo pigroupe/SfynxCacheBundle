@@ -45,7 +45,10 @@ class SfynxCacheExtension extends Extension
         FactoryPassInterface::HANDLER_DOCTRINE,
         FactoryPassInterface::HANDLER_ANNOTATION,
         FactoryPassInterface::HANDLER_SERIALIZER,
-        FactoryPassInterface::HANDLER_VALIDATION
+        FactoryPassInterface::HANDLER_VALIDATION,
+        FactoryPassInterface::HANDLER_CACHE_FILE,
+        FactoryPassInterface::HANDLER_CACHE_DUMPER,
+        FactoryPassInterface::HANDLER_CACHE_REDIS,
     ];
 
     /**
@@ -53,11 +56,8 @@ class SfynxCacheExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.yml');
-
         $configuration = new Configuration();
-        $config        = $this->processConfiguration($configuration, $configs);
+        $config = $this->processConfiguration($configuration, $configs);
 
         /**
          * Cache config parameter

@@ -48,7 +48,7 @@ interface CacheInterface
      * @access public
      * @return void
      */
-    public function set($key, $value, $ttl);
+    public function set($key, $value, $ttl = 3600);
 
     /**
      * Fresh a value to the cache under a unique key
@@ -76,13 +76,4 @@ interface CacheInterface
      * @return boolean
      */
     public function clear($key);
-
-    /**
-     * Set path
-     *
-     * @param string $path
-     * @access public
-     * @return CacheInterface
-     */
-    public function setPath($path);
 }

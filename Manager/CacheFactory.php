@@ -26,8 +26,11 @@ use Sfynx\CacheBundle\Manager\Generalisation\ClientInterface;
  */
 class CacheFactory implements CacheInterface
 {
+    /** @var null */
     protected $options = null;
+    /** @var null|CacheInterface|ClientInterface */
     protected $client = null;
+    /** @var bool */
     protected $safe = false;
 
     /**
@@ -114,14 +117,5 @@ class CacheFactory implements CacheInterface
         if ($this->isSafe($key)) {
             return $this->client->fresh($key, $value);
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setPath($path)
-    {
-        $this->client->setPath($path);
-        return $this;
     }
 }
