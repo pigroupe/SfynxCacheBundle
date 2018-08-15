@@ -116,24 +116,4 @@ class RediscacheClient implements ClientInterface
     {
         return $this->redis->clear();
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setPath($path)
-    {
-        return $this;
-    }
-
-    /**
-     * getStats returns the result of Memcache::getExtendedStats(), an associative array
-     * containing arrays of server stats
-     *
-     * @access public
-     * @return array Server stats array
-     */
-    public function getStats()
-    {
-        return $this->redis->getExtendedStats();
-    }
 }

@@ -7,31 +7,31 @@ parameters:
     sfynx.cache.client.dumpercache.class: Sfynx\CacheBundle\Manager\Client\DumperClient
 
 services:
-    #
-    # configuration of the class manager allowed for the filecache
-    #
-    sfynx.cache.dumpercache.client:
-        class: '%sfynx.cache.client.dumpercache.class%'
-        public: true
-        arguments: ['@kernel']
+#    #
+#    # configuration of the class manager allowed for the filecache
+#    #
+#    sfynx.cache.dumpercache.client:
+#        class: '%sfynx.cache.client.dumpercache.class%'
+#        public: true
+#        arguments: ['@kernel']
+#
+#    sfynx.cache.dumpercache:
+#        class: '%sfynx.cache.factory.class%'
+#        public: true
+#        arguments: ['@sfynx.cache.dumpercache.client']
 
-    sfynx.cache.dumpercache:
-        class: '%sfynx.cache.factory.class%'
-        public: true
-        arguments: ['@sfynx.cache.dumpercache.client']
-
-    #
-    # configuration of the class manager allowed for the filecache
-    #
-    sfynx.cache.filecache.client:
-        class: '%sfynx.cache.client.filecache.class%'
-        public: true
-
-    sfynx.cache.filecache:
-        class: '%sfynx.cache.factory.class%'
-        public: true
-        arguments: ['@sfynx.cache.filecache.client']
-
+#    #
+#    # configuration of the class manager allowed for the filecache
+#    #
+#    sfynx.cache.filecache.client:
+#        class: '%sfynx.cache.client.filecache.class%'
+#        public: true
+#
+#    sfynx.cache.filecache:
+#        class: '%sfynx.cache.factory.class%'
+#        public: true
+#        arguments: ['@sfynx.cache.filecache.client']
+#
 #    #
 #    # configuration of the class manager allowed for the Memcache
 #    #

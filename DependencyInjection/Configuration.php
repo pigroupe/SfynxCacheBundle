@@ -35,6 +35,8 @@ class Configuration implements ConfigurationInterface
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
 
+        $this->addFileCacheClientSupportSection($rootNode);
+        $this->addDumperCacheClientSupportSection($rootNode);
         $this->addRedisCacheClientSupportSection($rootNode);
         $this->addSessionSupportSection($rootNode);
         $this->addSerializerSection($rootNode);
@@ -111,6 +113,54 @@ class Configuration implements ConfigurationInterface
      *
      * @return ArrayNodeDefinition
      */
+    private function addFileCacheClientSupportSection(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+        ->children()
+            ->arrayNode('client_filecache')
+                ->canBeEnabled()
+                ->addDefaultsIfNotSet()
+                    ->children()
+                        ->booleanNode('enabled')->defaultFalse()->end()
+                        ->scalarNode('client')->defaultValue('Sfynx\CacheBundle\Manager\Client\FilecacheClient')->end()
+                        ->scalarNode('factory')->defaultValue('Sfynx\CacheBundle\Manager\CacheFactory')->end()
+                    ->end()
+                ->end()
+        ->end();
+        $this->normalizeEnabled($rootNode, FactoryPassInterface::HANDLER_CACHE_FILE);
+
+        return $rootNode;
+    }
+
+    /**
+     * Configure the "cache.session" section.
+     *
+     * @return ArrayNodeDefinition
+     */
+    private function addDumperCacheClientSupportSection(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+        ->children()
+            ->arrayNode('client_dumpercache')
+            ->canBeEnabled()
+            ->addDefaultsIfNotSet()
+                ->children()
+                    ->booleanNode('enabled')->defaultFalse()->end()
+                    ->scalarNode('client')->defaultValue('Sfynx\CacheBundle\Manager\Client\DumpercacheClient')->end()
+                    ->scalarNode('factory')->defaultValue('Sfynx\CacheBundle\Manager\CacheFactory')->end()
+                ->end()
+            ->end()
+        ->end();
+        $this->normalizeEnabled($rootNode, FactoryPassInterface::HANDLER_CACHE_FILE);
+
+        return $rootNode;
+    }
+
+    /**
+     * Configure the "cache.session" section.
+     *
+     * @return ArrayNodeDefinition
+     */
     private function addRedisCacheClientSupportSection(ArrayNodeDefinition $rootNode)
     {
         $rootNode
@@ -120,7 +170,6 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->booleanNode('enabled')->defaultFalse()->end()
-                        ->booleanNode('use_tagging')->defaultTrue()->end()
                         ->scalarNode('provider')->defaultValue('')->end()
                         ->scalarNode('client')->defaultValue('Sfynx\CacheBundle\Manager\Client\RediscacheClient')->end()
                         ->scalarNode('factory')->defaultValue('Sfynx\CacheBundle\Manager\CacheFactory')->end()

@@ -85,13 +85,4 @@ interface ClientInterface
      * @return bool
      */
     public function globClear(string $pattern = ''): bool;
-
-    /**
-     * Set path
-     *
-     * @param string $path
-     * @access public
-     * @return CacheInterface
-     */
-    public function setPath($path);
 }

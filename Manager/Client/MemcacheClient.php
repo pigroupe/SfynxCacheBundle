@@ -112,14 +112,6 @@ class MemcacheClient implements ClientInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function setPath($path)
-    {
-        return $this;
-    }
-
-    /**
      * Add a server to the memcache pool.
      *
      * Does not probe server, does not set Safe to true.

@@ -76,13 +76,4 @@ interface CacheInterface
      * @return boolean
      */
     public function clear($key);
-
-    /**
-     * Set path
-     *
-     * @param string $path
-     * @access public
-     * @return CacheInterface
-     */
-    public function setPath($path);
 }

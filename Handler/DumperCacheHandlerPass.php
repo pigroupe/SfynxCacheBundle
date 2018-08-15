@@ -22,7 +22,7 @@ use Sfynx\CacheBundle\Handler\Util\Bridge\SessionHandlerBridge;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\MemcacheSessionHandler;
 
 /**
- * Class RedisCacheHandlerPass
+ * Class DumperCacheHandlerPass
  *
  * @category   Bundle
  * @package    Sfynx\CacheBundle
@@ -34,10 +34,10 @@ use Symfony\Component\HttpFoundation\Session\Storage\Handler\MemcacheSessionHand
  * @link       http://opensource.org/licenses/gpl-license.php
  * @since      2015-02-16
  */
-class RedisCacheHandlerPass extends AbstractHandlerPass
+class DumperCacheHandlerPass extends AbstractHandlerPass
 {
     /** @var string */
-    const HANDLER_NAME = FactoryPassInterface::HANDLER_CACHE_REDIS;
+    const HANDLER_NAME = FactoryPassInterface::HANDLER_CACHE_DUMPER;
 
     /**
      * @return InterfaceSpecification
@@ -55,13 +55,10 @@ class RedisCacheHandlerPass extends AbstractHandlerPass
      */
     protected function process(ContainerBuilder $container, array $config): bool
     {
-        if (!empty($config['provider'])
-            && !empty($config['client'])
-        ) {
+        if (!empty($config['client'])) {
             $id_client = sprintf('sfynx.cache.%s.client', static::HANDLER_NAME);
             $container->register($id_client, $config['client'])
-                ->setPublic(true)
-                ->addArgument(new Reference($config['provider']));
+                ->setPublic(true);
 
             if (!empty($config['factory'])) {
                 if (\class_exists($config['factory'])) {

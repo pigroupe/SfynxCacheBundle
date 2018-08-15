@@ -118,13 +118,4 @@ class CacheFactory implements CacheInterface
             return $this->client->fresh($key, $value);
         }
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setPath($path)
-    {
-        $this->client->setPath($path);
-        return $this;
-    }
 }
