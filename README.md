@@ -8,9 +8,9 @@ It provides also interface cache client to manager everything in cache with ttl.
 
 The source of the documentation is stored in the `Resources/doc/` folder in this bundle :
 
-* [Read the Documentation for master](https://github.com/pigroupe/SfynxCacheBundle/blob/master/Resources/doc/index)
+* [Read the Documentation for master](https://github.com/pigroupe/SfynxCacheBundle/blob/master/Resources/doc/index.md)
 
-* [Read the Documentation](Resources/doc/index)
+* [Read the Documentation](Resources/doc/index.md)
 
 ## Installation
 
